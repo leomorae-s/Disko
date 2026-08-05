@@ -15,9 +15,13 @@ Disko escaneia um diretório recursivamente e permite navegar pela árvore de ar
 6. Exclusão automática de /proc, /sys e /dev ao escanear a partir da raiz /
 
 ## Arquitetura
+
   main.go
+  
   internal/
+  
   scanner/
+  
   tree/
 
 O scan roda sobre um pool fixo de 128 goroutines consumindo de um canal de jobs. Cada job representa um diretório a ser lido, ao encontrar subdiretórios, o worker enfileira um novo job para eles.
@@ -27,19 +31,25 @@ O scan roda sobre um pool fixo de 128 goroutines consumindo de um canal de jobs.
 Estrutura simples: Entry guarda nome, tipo e filhos. CalcSizes percorre a árvore recursivamente somando o tamanho dos filhos para determinar o tamanho de cada pasta.
 
 ## Como rodar
-bash
+
 git clone https://github.com/leomorae-s/Disko.git
+
 cd Disko
+
 go run main.go [caminho]
 
 Se nenhum caminho for informado, o scan parte do diretório home do usuário.
 
 ## Controles
-Tecla	Ação
+
 ↑ / k	mover cursor para cima
+
 ↓ / j	mover cursor para baixo
+
 Enter / → / l	entrar na pasta selecionada
+
 Esc / ← / h / Backspace	voltar para a pasta anterior
+
 q / Ctrl+C	sair
 
 ## Status
