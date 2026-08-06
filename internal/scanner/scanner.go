@@ -103,12 +103,15 @@ func (s *Scanner) process(j job) {
 			node.Type = tree.Folder
 			j.wg.Add(1)
 
+			childJob := job{path: filepath.Join(j.path, name), parent: node, wg: j.wg}
+
 			select {
-			case s.jobs <- job{path: filepath.Join(j.path, name), parent: node, wg: j.wg}:
+			case s.jobs <- childJob:
 			default:
-				go func(cp string, cn *tree.Entry, cwg *sync.WaitGroup) {
-					s.process(job{path: cp, parent: cn, wg: cwg})
-				}(filepath.Join(j.path, name), node, j.wg)
+				go func(cj job) {
+
+					s.jobs <- cj
+				}(childJob)
 			}
 		} else {
 			if info, err := e.Info(); err == nil {
