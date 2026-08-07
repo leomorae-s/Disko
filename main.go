@@ -1,22 +1,23 @@
 package main
 
 import (
-	"Disko/internal/scanner"
-	"Disko/internal/tree"
 	"fmt"
 	"os"
 	"sort"
 	"strings"
+
+	"Disko/internal/scanner"
+	"Disko/internal/tree"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 )
 
 var (
-	stTitle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("205")).MarginBottom(1)
+	stTitle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("#00d7d7"))
 	stItem  = lipgloss.NewStyle().PaddingLeft(2)
-	stSel   = lipgloss.NewStyle().PaddingLeft(2).Foreground(lipgloss.Color("170"))
-	stMuted = lipgloss.NewStyle().Foreground(lipgloss.Color("241"))
+	stSel   = lipgloss.NewStyle().PaddingLeft(2).Foreground(lipgloss.Color("#00afaf"))
+	stMuted = lipgloss.NewStyle().Foreground(lipgloss.Color("#00d7d7"))
 )
 
 func fmtSize(b int64) string {
@@ -177,9 +178,10 @@ func (a app) View() string {
 		if len(p) > 60 {
 			p = "..." + p[len(p)-57:]
 		}
-		return fmt.Sprintf("\n  %s reading: %s\n\n  found: %s",
+		return fmt.Sprintf(
+			"\n  %s reading: %s\n\n  found: %s",
 			spin,
-			lipgloss.NewStyle().Foreground(lipgloss.Color("205")).Render(p),
+			lipgloss.NewStyle().Foreground(lipgloss.Color("#00d7d7")).Render(p),
 			lipgloss.NewStyle().Bold(true).Render(fmt.Sprintf("%d", a.scanned)),
 		)
 	}
@@ -189,7 +191,7 @@ func (a app) View() string {
 	b.WriteString(stTitle.Render(fmt.Sprintf(" Disko 💿 - %s (%s)", a.curr.Name, fmtSize(a.curr.Size))))
 	b.WriteString("\n\n")
 
-	viewH := a.h - 6
+	viewH := a.h - 8
 	if viewH < 1 {
 		viewH = 1
 	}
