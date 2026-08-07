@@ -1,5 +1,8 @@
 # Disko 💿
 
+<img width="1920" height="1044" alt="image" src="https://github.com/user-attachments/assets/98f07b06-7657-41f5-b1b6-5576ba26d50e" />
+
+
 Analisador de uso de disco no terminal, inspirado no WinDirStat. Escrito em Go, com interface TUI construída com Bubble Tea.
 
 ## Sobre
